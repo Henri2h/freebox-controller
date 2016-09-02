@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypt.cs" />
+    <Compile Include="FreeboxControl.cs" />
+    <Compile Include="HTTP_Request.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="requests.cs" />

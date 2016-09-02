@@ -8,6 +8,18 @@ namespace freebox_controller
 {
     public static class requests
     {
+        public class login
+        {
+            public class session
+            {
+
+                public class Request
+                {
+                    public string app_id;
+                    public string password;
+                }
+            }
+        }
         public class authorisation
         {
             public string app_id;
@@ -15,22 +27,44 @@ namespace freebox_controller
             public string app_version;
             public string device_name;
         }
+
+
         public class response
         {
             public string success;
             public result result;
+            
+            // for invallid password :
+
+            public string error_code;
+            public string msg;
+            public string uid;
         }
-        public class result {
+        public class result
+        {
             //request authorisation
             public string app_token;
+            public string session_token;
             public string track_id;
 
             //track authorisation progress
             public string status;
             public string challenge;
-
+            public permission permissions;
             //login
             public string logged_in;
+        }
+
+        //permission for the account
+        public class permission
+        {
+            public bool settings = false;
+            public bool contacts = false;
+            public bool calls = false;
+            public bool explorer = false;
+            public bool downloader = false;
+            public bool parental = false;
+            public bool pvr = false;
         }
     }
 }
