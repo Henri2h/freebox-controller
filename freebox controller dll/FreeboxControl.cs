@@ -34,7 +34,7 @@ namespace freebox_controller
         {
             public login Login;
             public bool dataRegister = false;
-            
+
             public authentification()
             {
                 /* try
@@ -364,9 +364,15 @@ namespace freebox_controller
                 }
                 return false;
             }
-            public bool setFalse()
+            public bool setWifi(bool enabled)
             {
-                string JsonResponse = HTTP_Request.HTTP_PUT("/api/v2/wifi/config/", "{ \"enabled\":false}");
+                requests.wifi.globalConfig.wifi authorisationRequest = new requests.wifi.globalConfig.wifi();
+                authorisationRequest.enabled = enabled;
+
+                //serializing
+                string content = JsonConvert.SerializeObject(authorisationRequest);
+                string JsonResponse = HTTP_Request.HTTP_PUT("/api/v2/wifi/config/", content);
+                Console.WriteLine(JsonResponse);
                 requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
                 if (response.success == "true")
                 {
@@ -415,7 +421,7 @@ namespace freebox_controller
                     string JsonResponse = HTTP_Request.HTTP_GET("/api/v3/lan/browser/interfaces", null);
 
                     requests.configuration.lan_browser.LanInterfaces response = JsonConvert.DeserializeObject<requests.configuration.lan_browser.LanInterfaces>(JsonResponse);
-                    
+
                     if (response.success == "true")
                     {
                         return response;

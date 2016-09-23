@@ -14,6 +14,23 @@ namespace freebox_controller
 
         public static void Main(string[] args)
         {
+            while (true)
+            {
+                try
+                {
+                    setWifiOff();
+                }
+                catch
+                {
+                    Console.WriteLine("error");
+                }
+            }
+            Console.ReadLine();
+        }
+
+        public static void setWifiOff()
+        {
+
 
             HTTP_Request.setHost(host);
 
@@ -32,11 +49,38 @@ namespace freebox_controller
             }
             freeboxController.Authentification.saveSettings();
 
+            // set wifi on
+            //Console.WriteLine("Wifi enabled : " + freeboxController.Wifi.setWifi(true));
 
-            requests.configuration.lan_browser.LanInterfaces interfaces = freeboxController.Configuration.Lan_Browser.getLanInterfaces();
-            requests.configuration.lan_browser.LanHostObject objects = freeboxController.Configuration.Lan_Browser.getListLanHostObject();
-            
+            // lan browser
             /*
+            requests.configuration.lan_browser.LanInterfaces interfaces = freeboxController.Configuration.Lan_Browser.getLanInterfaces();
+            foreach (requests.configuration.lan_browser.LanInterfaces.Result te in interfaces.result)
+            {
+                Console.WriteLine("lan interface : " + te.name + " host_count : " + te.host_count);
+            }
+            Console.WriteLine();
+
+            requests.configuration.lan_browser.LanHostObject objects = freeboxController.Configuration.Lan_Browser.getListLanHostObject();
+            foreach (requests.configuration.lan_browser.LanHostObject.Result te in objects.result)
+            {
+                Console.WriteLine("Device : " + te.primary_name);
+                Console.WriteLine("ID : " + te.l2ident.id + " type : " + te.l2ident.type);
+                Console.WriteLine("last_activity : " + te.last_activity + " last_time_reachable : " + te.last_time_reachable);
+                Console.WriteLine("reachable : " + te.reachable);
+                Console.WriteLine("active : " + te.active);
+                Console.WriteLine("persistent : " + te.persistent);
+                if (te.l3connectivies != null)
+                {
+                    foreach (requests.configuration.lan_browser.LanHostObject.Result.L3connectivities test in te.l3connectivies)
+                    {
+                        Console.WriteLine("addr : " + test.addr + " af : " + test.af);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("l3connectivities :  null");
+                }*/
             bool enabled = true;
             while (true)
             {
@@ -44,14 +88,12 @@ namespace freebox_controller
                 if (enabled == true)
                 {
                     Console.WriteLine("It is on !!! " + DateTime.Now.ToString());
-                    enabled = freeboxController.Wifi.setFalse();
+                    enabled = freeboxController.Wifi.setWifi(false);
                     Console.WriteLine(" Now : " + enabled + Environment.NewLine);
                 }
-            }*/
-            Console.ReadLine();
+            }
+
         }
-
-
 
 
     }

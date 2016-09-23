@@ -24,6 +24,11 @@ namespace freebox_controller
         {
             public class globalConfig
             {
+                public class wifi
+                {
+                    public bool enabled;
+                }
+
                 public class update
                 {
                     public string enabled;
@@ -93,7 +98,7 @@ namespace freebox_controller
                         public bool persistent;
                         public bool reachable;
                         public string last_time_reachable;
-                        public static bool active;
+                        public bool active;
                         public string last_activity;
 
                         public IEnumerable<Names> names;
