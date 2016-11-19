@@ -61,18 +61,18 @@ namespace freebox_controller
             {
 
                 //login
-                public string app_token;
-                public string session_token;
+                public string app_token { get; set; }
+                public string session_token { get; set; }
 
-                public string track_id;
+                public string track_id { get; set; }
                 public bool loggedIn = false;
-                public string challenge;
+                public string challenge { get; set; }
 
                 // app declaration informations
-                public string app_id = ""; // id of the app like : "fr.freebox.controller"
-                public string app_name = ""; // name displayed for the app like : "freebox controller"
-                public string version = ""; // version  of th app like : "0.0.1"
-                public string deviceName = ""; // device name like : "computer of henri"
+                public string app_id { get; set; } // id of the app like : "fr.freebox.controller"
+                public string app_name { get; set; } // name displayed for the app like : "freebox controller"
+                public string version { get; set; } // version  of th app like : "0.0.1"
+                public string deviceName { get; set; } // device name like : "computer of henri"
 
                 public bool authorizeApp()
                 {
@@ -281,11 +281,11 @@ namespace freebox_controller
                 }
                 catch (Exception ex) { throw new Exception("Error in the auto login feature", ex); }
             }
-            public void registerApp(string deviceName, string appName, string appId, string version)
+            public void registerApp(string appName, string appId, string version)
             {
                 Login = new login();
 
-                Login.deviceName = deviceName;
+                Login.deviceName = Environment.MachineName;
                 Login.app_name = appName;
                 Login.app_id = appId;
                 Login.version = version;
@@ -396,6 +396,7 @@ namespace freebox_controller
             public class contacts { }
             public class call { }
         }
+
         public class configuration
         {
             public lan_browser Lan_Browser;

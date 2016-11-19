@@ -38,7 +38,7 @@ namespace freebox_controller
             //preparing login
             if (freeboxController.Authentification.exist() == false)
             {
-                freeboxController.Authentification.registerApp("ordi henri", "freebox controller", "fr.freebox.controller", appVersion);
+                freeboxController.Authentification.registerApp("freebox controller", "fr.freebox.controller", appVersion);
                 Console.WriteLine("Please change settings");
                 Console.ReadLine();
             }
