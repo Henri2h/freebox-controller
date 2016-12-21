@@ -318,7 +318,7 @@ namespace freebox_controller
                         string Out = JsonConvert.SerializeObject(Login);
                         File.WriteAllText(currentDirectory + "\\values.json", Out);
                     }
-                    catch (FileNotFoundException ex) { throw; }
+                    catch (FileNotFoundException ex) { throw ex; }
 
                     catch
                     {

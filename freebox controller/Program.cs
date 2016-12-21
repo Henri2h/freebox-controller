@@ -25,7 +25,7 @@ namespace freebox_controller
                     Console.WriteLine("error");
                 }
             }
-            Console.ReadLine();
+           // Console.ReadLine();
         }
 
         public static void setWifiOff()
