@@ -1,4 +1,7 @@
 # freebox-controller
+
+[![Build status](https://ci.appveyor.com/api/projects/status/fncymb79h6lev4xy?svg=true)](https://ci.appveyor.com/project/Henri2h/freebox-controller)
+
 Freebox controller app (console application c#)
 
 This program is design to control the internet box freebox of a french internet access provider
