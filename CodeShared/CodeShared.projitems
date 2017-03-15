@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>f4beab08-5e41-428d-aca1-a869ddb6beea</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>CodeShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Crypt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FreeboxControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HTTP_Request.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)methods\Authentification.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)methods\Wifi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)requests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)settingManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)packages.config" />
+  </ItemGroup>
+</Project>
