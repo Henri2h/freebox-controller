@@ -8,9 +8,10 @@ namespace FreeboxController
 {
     public class FreeboxController
     {
-        FreeboxController(string Host)
+        public CodeShared.FreeboxControl fb { get; set; }
+        public FreeboxController(string Host, string fileDir)
         {
-            CodeShared.FreeboxControl fb = new CodeShared.FreeboxControl();
+            fb = new CodeShared.FreeboxControl(Host, fileDir);
         }
     }
 }

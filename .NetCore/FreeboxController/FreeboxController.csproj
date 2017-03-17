@@ -6,4 +6,8 @@
 
   <Import Project="..\..\CodeShared\CodeShared.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
 </Project>
