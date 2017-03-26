@@ -40,7 +40,7 @@ namespace CodeShared
             try
             {
                 string Json = File.ReadAllText(Path.Combine(fileDir, "values.json"));
-                login data = JsonConvert.DeserializeObject<login>(Json);
+                Login data = JsonConvert.DeserializeObject<Login>(Json);
                 return data;
             }
             catch

@@ -19,6 +19,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\homePage.xaml.cs">
       <DependentUpon>homePage.xaml</DependentUpon>
     </Compile>

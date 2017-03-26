@@ -134,6 +134,7 @@ namespace CodeShared
 
                 if (Fbx_Header != "")
                 {
+                    
                     request.Headers.Add("X-Fbx-App-Auth", Fbx_Header);
                 }
 
