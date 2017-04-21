@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Text="Wifi"/>
-            <Button x:Name="UIWifi" Click="UIWifi_Click"/>
+            <Button x:Name="UIWifi" Click="UIWifi_ClickAsync"/>
         </StackPanel>
     </Grid>
 </Page>

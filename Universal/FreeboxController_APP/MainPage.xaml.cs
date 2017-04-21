@@ -25,7 +25,16 @@ namespace FreeboxController_APP
         public MainPage()
         {
             this.InitializeComponent();
-            AppCore.StartAsync();
+
+            StartAsync();
+        }
+
+        async void StartAsync()
+        {
+            await AppCore.StartAsync();
+
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(UI.HomePage));
         }
     }
 }
