@@ -6,10 +6,11 @@ namespace UIShared
 {
     public class Core
     {
-        static FreeboxController.FreeboxController fb { get; set; }
-        public static void start(string Host, string fileDir)
+        static CodeShared.FreeboxControl fb { get; set; }
+
+        public static void Start(string Host, string fileDir)
         {
-            fb = new FreeboxController.FreeboxController(Host, fileDir);
+            fb = new CodeShared.FreeboxControl(Host, fileDir);
             
         }
     }

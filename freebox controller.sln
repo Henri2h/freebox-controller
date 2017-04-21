@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "freebox controller", "freebox controller\freebox controller.csproj", "{197295E3-3B42-4331-BDEC-E7C138BD2CA4}"
 EndProject
@@ -15,18 +15,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Universal", "Universal", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NetCore", ".NetCore", "{40BA9F3B-4361-4BFB-B673-2A98E9D58F44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeboxController", "Universal\FreeboxController\FreeboxController.csproj", "{00020773-5A04-4E5C-BB24-C2E270424D4A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeboxController_APP", "Universal\FreeboxController_APP\FreeboxController_APP.csproj", "{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeboxController_CLI", ".NetCore\FreeboxController_CLI\FreeboxController_CLI.csproj", "{DF25EE4F-9F8B-403C-AACE-B47EC96A8169}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeboxController", ".NetCore\FreeboxController\FreeboxController.csproj", "{623AFC03-388F-4454-AD97-479ADB60E3DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{A4C4E6FE-AAE7-4B8B-98E2-11F2DDC2DA66}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		CodeShared\CodeShared.projitems*{00020773-5a04-4e5c-bb24-c2e270424d4a}*SharedItemsImports = 4
 		UIShared\UIShared.projitems*{bd1b8e6b-e365-4a00-909b-9f0d5b71a792}*SharedItemsImports = 13
+		CodeShared\CodeShared.projitems*{bf2cd3de-16da-4b10-bff1-9f12fed351fb}*SharedItemsImports = 4
 		UIShared\UIShared.projitems*{bf2cd3de-16da-4b10-bff1-9f12fed351fb}*SharedItemsImports = 4
 		CodeShared\CodeShared.projitems*{f4beab08-5e41-428d-aca1-a869ddb6beea}*SharedItemsImports = 13
 	EndGlobalSection
@@ -73,23 +73,9 @@ Global
 		{AC9FA445-50A4-4AE8-87B1-334171767F2C}.Release|x64.Build.0 = Release|Any CPU
 		{AC9FA445-50A4-4AE8-87B1-334171767F2C}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC9FA445-50A4-4AE8-87B1-334171767F2C}.Release|x86.Build.0 = Release|Any CPU
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|ARM.ActiveCfg = Debug|ARM
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|ARM.Build.0 = Debug|ARM
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|x64.ActiveCfg = Debug|x64
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|x64.Build.0 = Debug|x64
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|x86.ActiveCfg = Debug|x86
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Debug|x86.Build.0 = Debug|x86
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|ARM.ActiveCfg = Release|ARM
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|ARM.Build.0 = Release|ARM
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|x64.ActiveCfg = Release|x64
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|x64.Build.0 = Release|x64
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|x86.ActiveCfg = Release|x86
-		{00020773-5A04-4E5C-BB24-C2E270424D4A}.Release|x86.Build.0 = Release|x86
-		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.ActiveCfg = Debug|ARM
+		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.Build.0 = Debug|ARM
+		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.Deploy.0 = Debug|ARM
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|ARM.ActiveCfg = Debug|ARM
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|ARM.Build.0 = Debug|ARM
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -146,7 +132,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{00020773-5A04-4E5C-BB24-C2E270424D4A} = {CCCCA709-E9F6-4A1F-9894-C1A300BAA8F9}
+		{197295E3-3B42-4331-BDEC-E7C138BD2CA4} = {A4C4E6FE-AAE7-4B8B-98E2-11F2DDC2DA66}
+		{AC9FA445-50A4-4AE8-87B1-334171767F2C} = {A4C4E6FE-AAE7-4B8B-98E2-11F2DDC2DA66}
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB} = {CCCCA709-E9F6-4A1F-9894-C1A300BAA8F9}
 		{DF25EE4F-9F8B-403C-AACE-B47EC96A8169} = {40BA9F3B-4361-4BFB-B673-2A98E9D58F44}
 		{623AFC03-388F-4454-AD97-479ADB60E3DB} = {40BA9F3B-4361-4BFB-B673-2A98E9D58F44}
