@@ -44,11 +44,12 @@ namespace CodeShared.methods
         public async System.Threading.Tasks.Task RegisterAppAsync()
         {
             await Core.login.AuthorizeAppAsync();
+            SettingManager.SaveData();
         }
 
         ~Authentification()
         {
-            settingManager.saveData();
+            SettingManager.SaveData();
             dataRegister = true;
         }
     }

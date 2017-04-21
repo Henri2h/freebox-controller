@@ -11,7 +11,7 @@ namespace CodeShared.methods
         {
             try
             {
-                Core.login = settingManager.getData();
+                Core.login = SettingManager.GetData();
                 await Core.login.GetChallengeAsync();
                 await Core.login.GetSessionChallengeAsync();
                 return true;

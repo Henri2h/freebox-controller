@@ -7,23 +7,23 @@ using System.Text;
 
 namespace CodeShared
 {
-    public class settingManager
+    public class SettingManager
     {
-        public static string fileDir { get; set; }
+        public static string FileDir { get; set; }
 
         public static bool FileExist()
         {
-            string file = Path.Combine(fileDir, "values.json");
+            string file = Path.Combine(FileDir, "values.json");
             return File.Exists(file);
         }
-        public static void saveData()
+        public static void SaveData()
         {
             try
             {
-                Directory.CreateDirectory(fileDir);
+                Directory.CreateDirectory(FileDir);
 
                 string Out = JsonConvert.SerializeObject(Core.login);
-                File.WriteAllText(Path.Combine(fileDir, "values.json"), Out);
+                File.WriteAllText(Path.Combine(FileDir, "values.json"), Out);
             }
             catch (FileNotFoundException ex) { throw ex; }
 
@@ -37,7 +37,7 @@ namespace CodeShared
         {
             try
             {
-                return getData();
+                return GetData();
             }
             catch
             {
@@ -50,11 +50,11 @@ namespace CodeShared
             public ErrorInGettingTheData() : base() { }
             public ErrorInGettingTheData(string message) : base(message) { }
         }
-        public static Login getData()
+        public static Login GetData()
         {
             try
             {
-                string Json = File.ReadAllText(Path.Combine(fileDir, "values.json"));
+                string Json = File.ReadAllText(Path.Combine(FileDir, "values.json"));
                 Login data = JsonConvert.DeserializeObject<Login>(Json);
                 return data;
             }

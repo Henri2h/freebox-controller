@@ -17,7 +17,6 @@ namespace CodeShared
 
         public Authentification authentification;
         public Wifi wifi;
-        Login login;
 
         public FreeboxControl(string Host, string fileDir)
         {
@@ -25,8 +24,8 @@ namespace CodeShared
 
             Core.Host = Host;
 
-            settingManager.fileDir = fileDir;
-           Core.login = settingManager.TryToLoad();
+            SettingManager.FileDir = fileDir;
+           Core.login = SettingManager.TryToLoad();
 
             // different classes :
             authentification = new Authentification();
@@ -37,11 +36,11 @@ namespace CodeShared
         // setting manager
         public bool Exist()
         {
-            return settingManager.FileExist();
+            return SettingManager.FileExist();
         }
         public void SaveSettings()
         {
-            settingManager.saveData();
+            SettingManager.SaveData();
             Core.dataRegister = true;
         }
     }
