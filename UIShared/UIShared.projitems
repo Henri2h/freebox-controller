@@ -9,10 +9,6 @@
     <Import_RootNamespace>UIShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)UI\homePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)UI\userDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -20,9 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Core.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\homePage.xaml.cs">
-      <DependentUpon>homePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UI\userDisplay.xaml.cs">
       <DependentUpon>userDisplay.xaml</DependentUpon>
     </Compile>
