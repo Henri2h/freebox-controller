@@ -25,7 +25,7 @@ namespace FreeboxController_APP
         public MainPage()
         {
             this.InitializeComponent();
-            
+            AppCore.StartAsync();
         }
     }
 }
