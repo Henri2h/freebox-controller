@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,28 +11,45 @@ namespace CodeShared.methods
         // they are still under develloppement
 
         public bool dataRegister = false;
-        public Authentification() { Login log = new Login(); }
-        ~authentification()
+
+        public bool NeedRegistration
+        {
+            get
+            {
+                if (Core.login.Session_token == "" || Core.login.Session_token == null) return true;
+                return false;
+            }
+        }
+
+        public Authentification()
+        {
+            if (Core.login == null)
+            {
+                Core.login = new Login()
+                {
+                    deviceName = "MachineName",
+                    app_name = "freeboxController",
+                    app_id = Guid.NewGuid().ToString("N"),
+                    version = "1.1.0"
+                };
+            }
+        }
+
+        public async void ConnectAppAsync()
+        {
+            await Core.login.GetSessionChallengeAsync();
+        }
+
+        // string appName, string appId, string version, string machineName
+        public async System.Threading.Tasks.Task RegisterAppAsync()
+        {
+            await Core.login.AuthorizeAppAsync();
+        }
+
+        ~Authentification()
         {
             settingManager.saveData();
             dataRegister = true;
         }
-
-
-        public async System.Threading.Tasks.Task RegisterAppAsync(string appName, string appId, string version, string machineName)
-        {
-            Login login = new Login();
-
-            login.deviceName = machineName;
-            login.app_name = appName;
-            login.app_id = appId;
-            login.version = version;
-
-            await login.authorizeAppAsync();
-            await login.getSessionTokenAsync();
-
-            Core.login = login;
-        }
-
     }
 }

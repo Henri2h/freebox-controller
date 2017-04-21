@@ -7,13 +7,13 @@ namespace CodeShared.methods
 {
     public class Login
     {
-        public async System.Threading.Tasks.Task<bool> loginAutoAsync()
+        public async System.Threading.Tasks.Task<bool> LoginAutoAsync()
         {
             try
             {
                 Core.login = settingManager.getData();
-                await Core.login.getChallengeAsync();
-                await Core.login.getSessionTokenAsync();
+                await Core.login.GetChallengeAsync();
+                await Core.login.GetSessionChallengeAsync();
                 return true;
             }
             catch (Exception ex) { throw new Exception("Error in the auto login feature", ex); }
@@ -21,12 +21,12 @@ namespace CodeShared.methods
         }
 
         //login
-        public string app_token { get; set; }
-        public string session_token { get; set; }
+        public string App_token { get; set; }
+        public string Session_token { get; set; }
 
-        public string track_id { get; set; }
+        public string Track_id { get; set; }
         public bool loggedIn = false;
-        public string challenge { get; set; }
+        public string Challenge { get; set; }
 
         // app declaration informations
         public string app_id { get; set; } // id of the app like : "fr.freebox.controller"
@@ -34,52 +34,61 @@ namespace CodeShared.methods
         public string version { get; set; } // version  of th app like : "0.0.1"
         public string deviceName { get; set; } // device name like : "computer of henri"
 
-        public async System.Threading.Tasks.Task<bool> getSessionTokenAsync()
+        public async System.Threading.Tasks.Task<bool> GetSessionChallengeAsync()
         {
-            if (app_token == null || app_token == "")
+            if (App_token == null || App_token == "")
             {
                 throw new TokenNull();
             }
-            if (challenge == "" || challenge == null)
+            if (Challenge == "" || Challenge == null)
             {
-                await getChallengeAsync();
+                await GetChallengeAsync();
             }
             //password
-            string password = Crypt.Encode(challenge, app_token);
+            string password = Crypt.Encode(Challenge, App_token);
             //string password = Encode(app_token, challenge);
-            requests.login.session.Request sessionRequest = new requests.login.session.Request();
-            sessionRequest.app_id = app_id;
-            sessionRequest.password = password;
+            requests.login.session.Request sessionRequest = new requests.login.session.Request()
+            {
+                app_id = app_id,
+                password = password
+            };
 
 
             // json conversion
             string sessReq = JsonConvert.SerializeObject(sessionRequest);
+            
             // post request
             string JsonResponse = await HTTP_Request.HTTP_POSTAsync(Core.Host, "/api/v3/login/session/", sessReq);
 
             requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
             if (response.success == "true")
             {
-                session_token = response.result.session_token;
-                challenge = response.result.challenge;
+                Session_token = response.result.session_token;
+                Challenge = response.result.challenge;
+
                 requests.permission appPermissions = response.result.permissions;
-                HTTP_Request.Fbx_Header = session_token;
-                await getChallengeAsync();
+
+                // set Fbx_Hedaer for other call
+                HTTP_Request.Fbx_Header = Session_token;
+
+                await GetChallengeAsync();
                 return true;
             }
             throw new LoginFailedException();
         }
 
-        public async System.Threading.Tasks.Task getChallengeAsync()
+        public async System.Threading.Tasks.Task GetChallengeAsync()
         {
             //update challenge and return if we are loggin or not
 
             string JsonResponse = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/login", null);
             requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
+
             if (response.success == "true")
             {
-                challenge = response.result.challenge;
-                System.Diagnostics.Debug.WriteLine("Challenge : " + challenge);
+                Challenge = response.result.challenge;
+                System.Diagnostics.Debug.WriteLine("Challenge : " + Challenge);
+
                 if (response.result.logged_in == "true")
                 {
                     loggedIn = true;
@@ -89,21 +98,23 @@ namespace CodeShared.methods
                     loggedIn = false;
 
                 }
-                else { throw new LoginFailedException("an error append in getting the loggin"); }
+                else { throw new LoginFailedException("An error append in getting the loggin"); }
             }
             else
             {
                 throw new LoginFailedException();
             }
         }
-        public async System.Threading.Tasks.Task<bool> authorizeAppAsync()
+        public async System.Threading.Tasks.Task<bool> AuthorizeAppAsync()
         {
             // filling the data in order to send them
-            requests.authorisation authorisationRequest = new requests.authorisation();
-            authorisationRequest.app_id = app_id;
-            authorisationRequest.app_name = app_name;
-            authorisationRequest.app_version = version;
-            authorisationRequest.device_name = deviceName;
+            requests.authorisation authorisationRequest = new requests.authorisation()
+            {
+                app_id = app_id,
+                app_name = app_name,
+                app_version = version,
+                device_name = deviceName
+            };
 
             //serializing
             string authReq = JsonConvert.SerializeObject(authorisationRequest);
@@ -113,15 +124,16 @@ namespace CodeShared.methods
             if (response.success == "true")
             {
 
-                app_token = response.result.app_token;
-                track_id = response.result.track_id;
-
+                App_token = response.result.app_token;
+                Track_id = response.result.track_id;
+                
+                System.Diagnostics.Debug.WriteLine("Track pending ...");
                 //tracking pending ...
                 bool requestEnded = false;
 
                 while (requestEnded == false)
                 {
-                    authorisation = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/login/authorize/" + track_id, null);
+                    authorisation = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/login/authorize/" + Track_id, null);
                     response = JsonConvert.DeserializeObject<requests.response>(authorisation);
                     if (response.success == "true")
                     {

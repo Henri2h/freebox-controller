@@ -11,7 +11,7 @@ namespace CodeShared
     {
         public static string fileDir { get; set; }
 
-        public static bool fileExist()
+        public static bool FileExist()
         {
             string file = Path.Combine(fileDir, "values.json");
             return File.Exists(file);
@@ -20,6 +20,8 @@ namespace CodeShared
         {
             try
             {
+                Directory.CreateDirectory(fileDir);
+
                 string Out = JsonConvert.SerializeObject(Core.login);
                 File.WriteAllText(Path.Combine(fileDir, "values.json"), Out);
             }
@@ -30,6 +32,19 @@ namespace CodeShared
                 throw new ErrorInGettingTheData("Error in saving the data");
             }
         }
+
+        internal static Login TryToLoad()
+        {
+            try
+            {
+                return getData();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public class ErrorInGettingTheData : Exception
         {
             public ErrorInGettingTheData() : base() { }

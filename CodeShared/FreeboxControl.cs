@@ -17,11 +17,17 @@ namespace CodeShared
 
         public Authentification authentification;
         public Wifi wifi;
+        Login login;
 
         public FreeboxControl(string Host, string fileDir)
         {
+            if (Host == "" || Host == null) Host = "http://mafreebox.freebox.fr";
+
             Core.Host = Host;
+
             settingManager.fileDir = fileDir;
+           Core.login = settingManager.TryToLoad();
+
             // different classes :
             authentification = new Authentification();
             wifi = new Wifi();
@@ -29,11 +35,11 @@ namespace CodeShared
 
 
         // setting manager
-        public bool exist()
+        public bool Exist()
         {
-            return settingManager.fileExist();
+            return settingManager.FileExist();
         }
-        public void saveSettings()
+        public void SaveSettings()
         {
             settingManager.saveData();
             Core.dataRegister = true;

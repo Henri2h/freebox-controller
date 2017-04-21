@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CodeShared.methods
 {
-    public class parentalControll
+    public class ParentalControll
     {
     }
 }

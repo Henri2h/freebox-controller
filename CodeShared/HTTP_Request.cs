@@ -24,12 +24,12 @@ namespace CodeShared
 
             if (Fbx_Header != "")
             {
-                request.Headers.Add("X-Fbx-App-Auth", Fbx_Header);
+                request.Headers["X-Fbx-App-Auth"] = Fbx_Header;
             }
 
             byte[] sentData = Encoding.UTF8.GetBytes(Data);
-            request.ContentLength = sentData.Length;
-
+            // = sentData.Length;
+            
             using (System.IO.Stream sendStream = await request.GetRequestStreamAsync())
             {
                 sendStream.Write(sentData, 0, sentData.Length);
@@ -88,7 +88,7 @@ namespace CodeShared
             if (Fbx_Header != "")
             {
 
-                req.Headers.Add("X-Fbx-App-Auth", Fbx_Header);
+                req.Headers["X-Fbx-App-Auth"] = Fbx_Header;
             }
 
             try
@@ -124,8 +124,6 @@ namespace CodeShared
             string Out = String.Empty;
             try
             {
-
-
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + Url);
                 request.Method = "PUT";
                 request.ContinueTimeout = 100000;
@@ -135,11 +133,11 @@ namespace CodeShared
                 if (Fbx_Header != "")
                 {
                     
-                    request.Headers.Add("X-Fbx-App-Auth", Fbx_Header);
+                    request.Headers["X-Fbx-App-Auth"] = Fbx_Header;
                 }
 
                 byte[] sentData = Encoding.UTF8.GetBytes(Data);
-                request.ContentLength = sentData.Length;
+          //      request.ContentLength = sentData.Length;
 
                 using (System.IO.Stream sendStream = await request.GetRequestStreamAsync())
                 {
@@ -174,8 +172,7 @@ namespace CodeShared
         }
         enum DataType
         {
-            application/json,
-
+            applicationJson
         }
 
     }

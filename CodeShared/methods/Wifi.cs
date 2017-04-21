@@ -22,21 +22,27 @@ namespace CodeShared.methods
         }
         public async System.Threading.Tasks.Task<bool> setWifiAsync(bool enabled)
         {
-            requests.wifi.globalConfig.wifi authorisationRequest = new requests.wifi.globalConfig.wifi();
-            authorisationRequest.enabled = enabled;
-
-            //serializing
-            string content = JsonConvert.SerializeObject(authorisationRequest);
-            string JsonResponse = await HTTP_Request.HTTP_PUTAsync(Core.Host, "/api/v2/wifi/config/", content);
-            requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
-            if (response.success == "true")
+            if (HTTP_Request.Fbx_Header != null && HTTP_Request.Fbx_Header != "")
             {
-                if (response.result.enabled == "true")
+                requests.wifi.globalConfig.wifi authorisationRequest = new requests.wifi.globalConfig.wifi()
                 {
-                    return true;
+                    enabled = enabled
+                };
+
+                //serializing
+                string content = JsonConvert.SerializeObject(authorisationRequest);
+                string JsonResponse = await HTTP_Request.HTTP_PUTAsync(Core.Host, "/api/v2/wifi/config/", content);
+                requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
+                if (response.success == "true")
+                {
+                    if (response.result.enabled == "true")
+                    {
+                        return true;
+                    }
                 }
+                return false;
             }
-            return false;
+            throw new Exception("No FBX Header given");
         }
     }
 }
