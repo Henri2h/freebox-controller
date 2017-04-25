@@ -25,11 +25,17 @@ namespace CodeShared
             Core.Host = Host;
 
             SettingManager.FileDir = fileDir;
-           Core.login = SettingManager.TryToLoad();
+            Core.login = SettingManager.TryToLoad();
 
             // different classes :
             authentification = new Authentification();
             wifi = new Wifi();
+        }
+
+        public string MachineName
+        {
+            get { return Core.login.DeviceName; }
+            set { Core.login.DeviceName = value; }
         }
 
 
