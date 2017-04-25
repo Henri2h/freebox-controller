@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,40 +8,38 @@ namespace CodeShared.methods
 {
     public class Wifi
     {
-        public async System.Threading.Tasks.Task<bool> getWifiInfoAsync()
+        public async System.Threading.Tasks.Task<bool> GetWifiInfoAsync()
         {
             string JsonResponse = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v2/wifi/config/", null);
-            requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
-            if (response.success == "true")
-            {
-                if (response.result.enabled == "true")
-                {
-                    return true;
-                }
-            }
-            return false;
+            System.Diagnostics.Debug.WriteLine(JsonResponse);
+
+            JObject response = JObject.Parse(JsonResponse);
+            bool success = (bool)response["success"];
+            bool enabled = (bool)response["result"]["enabled"];
+            string mac_filter_state = (string)response["result"]["mac_filter_state"];
+
+            System.Diagnostics.Debug.WriteLine("Mac filter state : " + mac_filter_state);
+
+            return enabled;
         }
-        public async System.Threading.Tasks.Task<bool> setWifiAsync(bool enabled)
+        public async System.Threading.Tasks.Task<bool> SetWifiAsync(bool enabled)
         {
             if (HTTP_Request.Fbx_Header != null && HTTP_Request.Fbx_Header != "")
             {
-                requests.wifi.globalConfig.wifi authorisationRequest = new requests.wifi.globalConfig.wifi()
-                {
-                    enabled = enabled
-                };
+                JObject request = new JObject
+            {
+                { "enabled", enabled }
+            };
 
-                //serializing
-                string content = JsonConvert.SerializeObject(authorisationRequest);
-                string JsonResponse = await HTTP_Request.HTTP_PUTAsync(Core.Host, "/api/v2/wifi/config/", content);
-                requests.response response = JsonConvert.DeserializeObject<requests.response>(JsonResponse);
-                if (response.success == "true")
+
+                string JsonResponse = await HTTP_Request.HTTP_PUTAsync(Core.Host, "/api/v2/wifi/config/", request.ToString());
+                JObject response = JObject.Parse(JsonResponse);
+                bool success = (bool)response["success"];
+                if (success)
                 {
-                    if (response.result.enabled == "true")
-                    {
-                        return true;
-                    }
+                    return (bool)response["result"]["enabled"];
                 }
-                return false;
+
             }
             throw new Exception("No FBX Header given");
         }
