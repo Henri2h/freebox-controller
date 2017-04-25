@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking;
+using Windows.Networking.Connectivity;
 
 namespace FreeboxController_APP
 {
-  public   class AppCore
+    public class AppCore
     {
         public static CodeShared.FreeboxControl FreeboxController { get; set; }
         public static Windows.Storage.StorageFolder AppStorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -17,16 +19,19 @@ namespace FreeboxController_APP
         {
             FreeboxController = new CodeShared.FreeboxControl("http://mafreebox.freebox.fr", AppDataFolder);
 
+
             if (FreeboxController.authentification.NeedRegistration)
             {
                 System.Diagnostics.Debug.WriteLine("Registering app");
-                await FreeboxController.authentification.RegisterAppAsync();
+
+                var hostNames = NetworkInformation.GetHostNames();
+                var hostName = hostNames.FirstOrDefault(name => name.Type == HostNameType.DomainName)?.DisplayName ?? "???";
+
+                FreeboxController.MachineName = hostName;
+                Task r = FreeboxController.authentification.RegisterAppAsync();
+                await r;
             }
-
-            System.Diagnostics.Debug.WriteLine("App registered");
-            FreeboxController.authentification.ConnectAppAsync();
-
-            System.Diagnostics.Debug.WriteLine("END");
+            await FreeboxController.authentification.ConnectAppAsync();
         }
     }
 }
