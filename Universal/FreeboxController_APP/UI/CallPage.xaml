@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FreeboxController_APP.UI.HomePage"
+    x:Class="FreeboxController_APP.UI.CallPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FreeboxController_APP.UI"
@@ -8,11 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBlock Text="Wifi"/>
-            <Button x:Name="UIWifi" Click="UIWifi_ClickAsync"/>
-            <Button Content="Refresh" Click="UIRefresh"/>
-            <Button Content="Get calls" Click="UICalls"/>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="Calls"/>
+                <StackPanel x:Name="UICalls"/>
+                <Button Content="Refresh" Click="UIRefreshClickAsync"/>
+            </StackPanel>
+        </ScrollViewer>
+
     </Grid>
 </Page>

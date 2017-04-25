@@ -46,7 +46,7 @@ namespace FreeboxController_APP.UI
         {
             try
             {
-                bool result = await AppCore.FreeboxController.wifi.SetWifiAsync(this.wifiEnabled);
+                bool result = await AppCore.FreeboxController.wifi.SetWifiAsync(!this.wifiEnabled);
                 LoadElementsAsync();
             }
             catch
@@ -59,6 +59,10 @@ namespace FreeboxController_APP.UI
         private void UIRefresh(object sender, RoutedEventArgs e)
         {
             LoadElementsAsync();
+        }
+        private void UICalls(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CallPage));
         }
     }
 }
