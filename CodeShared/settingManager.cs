@@ -41,6 +41,7 @@ namespace CodeShared
             }
             catch
             {
+                System.Diagnostics.Debug.WriteLine("Error in getting the values : using null");
                 return null;
             }
         }
