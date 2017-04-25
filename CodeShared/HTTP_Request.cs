@@ -12,6 +12,8 @@ namespace CodeShared
     {
 
         public static string Fbx_Header = "";
+        public static string SessionToken = "";
+
         public static async Task<string> HTTP_POSTAsync(string host, string Url, string Data)
         {
             string Out = String.Empty;
@@ -29,7 +31,7 @@ namespace CodeShared
 
             byte[] sentData = Encoding.UTF8.GetBytes(Data);
             // = sentData.Length;
-            
+
             using (System.IO.Stream sendStream = await request.GetRequestStreamAsync())
             {
                 sendStream.Write(sentData, 0, sentData.Length);
@@ -77,6 +79,7 @@ namespace CodeShared
             catch (Exception ex)
             {
                 Out = string.Format("HTTP_ERROR :: Exception raised! :: {0}", ex.Message);
+                Out += Environment.NewLine + Url;
             }
             System.Diagnostics.Debug.WriteLine(Out);
             return Out;
@@ -89,6 +92,10 @@ namespace CodeShared
             {
 
                 req.Headers["X-Fbx-App-Auth"] = Fbx_Header;
+                if (SessionToken != "")
+                {
+                    req.Headers["session_token"] = SessionToken;
+                }
             }
 
             try
@@ -132,12 +139,11 @@ namespace CodeShared
 
                 if (Fbx_Header != "")
                 {
-                    
                     request.Headers["X-Fbx-App-Auth"] = Fbx_Header;
                 }
-
+                 
                 byte[] sentData = Encoding.UTF8.GetBytes(Data);
-          //      request.ContentLength = sentData.Length;
+                //      request.ContentLength = sentData.Length;
 
                 using (System.IO.Stream sendStream = await request.GetRequestStreamAsync())
                 {
