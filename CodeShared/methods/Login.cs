@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CodeShared.methods
 {
@@ -151,58 +152,76 @@ namespace CodeShared.methods
 
         public async System.Threading.Tasks.Task<bool> AuthorizeAppAsync()
         {
-            // filling the data in order to send them
-            requests.authorisation authorisationRequest = new requests.authorisation()
+
+            bool success = await SendAuthorisationRequest();
+            if (success)
             {
-                app_id = App_id,
-                app_name = App_name,
-                app_version = Version,
-                device_name = DeviceName
-            };
-
-            //serializing
-            string authReq = JsonConvert.SerializeObject(authorisationRequest);
-
-            string authorisation = await HTTP_Request.HTTP_POSTAsync(Core.Host, "/api/v3/login/authorize", authReq);
-            requests.response response = JsonConvert.DeserializeObject<requests.response>(authorisation);
-            if (response.success == "true")
-            {
-
-                App_token = response.result.app_token;
-                Track_id = response.result.track_id;
-
                 System.Diagnostics.Debug.WriteLine("Track pending ...");
+
                 //tracking pending ...
                 bool requestEnded = false;
-
                 while (requestEnded == false)
                 {
-                    authorisation = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/login/authorize/" + Track_id, null);
-                    response = JsonConvert.DeserializeObject<requests.response>(authorisation);
-
-                    JObject authorisationJObject = JObject.Parse(authorisation);
-
-                    System.Diagnostics.Debug.WriteLine(authorisationJObject["success"]);
-
-                    if ((bool)authorisationJObject["success"] == true)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Success request");
-
-                        string status = response.result.status;
-
-                        //checking the status
-                        if (status == "granted") { return true; }
-                        else if (status == "timeout") { throw new Exception("Request timeout"); }
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine(authorisationJObject["msg"]);
-                        System.Diagnostics.Debug.WriteLine(authorisationJObject["error_code"]);
-                    }
+                    string state = await GettrackPendingInfoAsync(Track_id);
+                    if (state == "granted") { return true; }
+                    else if (state == "error") return false;
                 }
             }
             return false;
         }
+
+        public async Task<bool> SendAuthorisationRequest()
+        {
+            JObject request = new JObject
+            {
+                { "app_id" , App_id },
+                { "app_name" , App_name },
+                { "app_version" , Version },
+                { "device_name" , DeviceName },
+
+            };
+
+            //serializing
+            string authReq = JsonConvert.SerializeObject(request.ToString());
+
+            string authorisation = await HTTP_Request.HTTP_POSTAsync(Core.Host, "/api/v3/login/authorize", authReq);
+            JObject response = JObject.Parse(authorisation);
+
+
+            bool success = (bool)response["success"];
+            if (success)
+            {
+                this.App_token = (string)response["result"]["app_token"];
+                this.Track_id = (string)response["result"]["track_id"];
+            }
+
+            return success;
+        }
+
+        public async System.Threading.Tasks.Task<string> GettrackPendingInfoAsync(string Track_id)
+        {
+            string authorisation = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/login/authorize/" + Track_id, null);
+            JObject response = JObject.Parse(authorisation);
+
+            if ((bool)response["success"] == true)
+            {
+                System.Diagnostics.Debug.WriteLine("Success request");
+
+                string status = (string)response["result"]["status"];
+
+                //checking the status
+                if (status == "granted") { return "granted"; }
+                else if (status == "timeout") { throw new Exception("Request timeout"); }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine(response["msg"]);
+                System.Diagnostics.Debug.WriteLine(response["error_code"]);
+                return "error";
+            }
+            return "waiting";
+        }
+
 
         public class LoginFailedException : System.Exception
         {
