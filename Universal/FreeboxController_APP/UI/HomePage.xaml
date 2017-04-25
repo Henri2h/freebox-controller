@@ -11,6 +11,7 @@
         <StackPanel>
             <TextBlock Text="Wifi"/>
             <Button x:Name="UIWifi" Click="UIWifi_ClickAsync"/>
+            <Button Content="Refresh" Click="UIRefresh"/>
         </StackPanel>
     </Grid>
 </Page>

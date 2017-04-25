@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,29 +24,41 @@ namespace FreeboxController_APP.UI
     /// </summary>
     public sealed partial class HomePage : Page
     {
+        bool wifiEnabled = false;
+
         public HomePage()
         {
             this.InitializeComponent();
+            LoadElementsAsync();
         }
-        public async Task LoadElementsAsync()
+        public async void LoadElementsAsync()
         {
-            Task<bool> WifiInfos = AppCore.FreeboxController.wifi.getWifiInfoAsync();
+            Task<bool> WifiInfos = AppCore.FreeboxController.wifi.GetWifiInfoAsync();
 
-            bool wifiInfos = await WifiInfos;
-            if (wifiInfos) { UIWifi.Content = "Disable"; }
+            this.wifiEnabled = await WifiInfos;
+
+            if (this.wifiEnabled) { UIWifi.Content = "Disable"; }
             else { UIWifi.Content = "Enable"; }
 
         }
 
-        private async Task UIWifi_ClickAsync(object sender, RoutedEventArgs e)
+        private async void UIWifi_ClickAsync(object sender, RoutedEventArgs e)
         {
-            bool wifiEnabled = false;
-            if (UIWifi.Content.ToString() == "Disable")
+            try
             {
-                wifiEnabled = true;
+                bool result = await AppCore.FreeboxController.wifi.SetWifiAsync(this.wifiEnabled);
+                LoadElementsAsync();
             }
+            catch
+            {
+                var dialog = new MessageDialog("Could not turn on the wifi. Verify permissions");
+                await dialog.ShowAsync();
+            }
+        }
 
-            await AppCore.FreeboxController.wifi.setWifiAsync(wifiEnabled);
+        private void UIRefresh(object sender, RoutedEventArgs e)
+        {
+            LoadElementsAsync();
         }
     }
 }
