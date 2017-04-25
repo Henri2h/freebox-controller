@@ -17,6 +17,7 @@ namespace CodeShared
 
         public Authentification authentification;
         public Wifi wifi;
+        public Call call;
 
         public FreeboxControl(string Host, string fileDir)
         {
@@ -30,6 +31,7 @@ namespace CodeShared
             // different classes :
             authentification = new Authentification();
             wifi = new Wifi();
+            call = new Call();
         }
 
         public string MachineName
