@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,10 +33,26 @@ namespace FreeboxController_APP
 
         async void StartAsync()
         {
-            await AppCore.StartAsync();
+            try
+            {
+                Task t = AppCore.StartAsync();
+                await t;
 
-            Frame rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(UI.HomePage));
+
+                System.Diagnostics.Debug.WriteLine("Going to navigate");
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(UI.HomePage));
+            }
+            catch
+            {
+                var dialog = new MessageDialog("Could not connect");
+                await dialog.ShowAsync();
+            }
+        }
+
+        private void UIBtText_Click(object sender, RoutedEventArgs e)
+        {
+            StartAsync();
         }
     }
 }
