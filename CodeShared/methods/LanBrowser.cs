@@ -7,28 +7,13 @@ namespace CodeShared.methods
 {
     public class LanBrowser
     {
-        public async System.Threading.Tasks.Task<requests.configuration.lan_browser.LanHostObject> GetListLanHostObjectAsync()
+        public async System.Threading.Tasks.Task GetListLanHostObjectAsync()
         {
             string JsonResponse = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/lan/browser/pub", null);
-
-            requests.configuration.lan_browser.LanHostObject response = JsonConvert.DeserializeObject<requests.configuration.lan_browser.LanHostObject>(JsonResponse);
-            if (response.success == "true")
-            {
-                return response;
-            }
-            return null;
         }
-        public async System.Threading.Tasks.Task<requests.configuration.lan_browser.LanInterfaces> GetLanInterfacesAsync()
+        public async System.Threading.Tasks.Task GetLanInterfacesAsync()
         {
             string JsonResponse = await HTTP_Request.HTTP_GETAsync(Core.Host, "/api/v3/lan/browser/interfaces", null);
-
-            requests.configuration.lan_browser.LanInterfaces response = JsonConvert.DeserializeObject<requests.configuration.lan_browser.LanInterfaces>(JsonResponse);
-
-            if (response.success == "true")
-            {
-                return response;
-            }
-            return null;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "freebox controller", "freebox controller\freebox controller.csproj", "{197295E3-3B42-4331-BDEC-E7C138BD2CA4}"
 EndProject
@@ -73,9 +73,9 @@ Global
 		{AC9FA445-50A4-4AE8-87B1-334171767F2C}.Release|x64.Build.0 = Release|Any CPU
 		{AC9FA445-50A4-4AE8-87B1-334171767F2C}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC9FA445-50A4-4AE8-87B1-334171767F2C}.Release|x86.Build.0 = Release|Any CPU
-		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.ActiveCfg = Debug|ARM
-		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.Build.0 = Debug|ARM
-		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.Deploy.0 = Debug|ARM
+		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.Build.0 = Debug|x64
+		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|ARM.ActiveCfg = Debug|ARM
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|ARM.Build.0 = Debug|ARM
 		{BF2CD3DE-16DA-4B10-BFF1-9F12FED351FB}.Debug|ARM.Deploy.0 = Debug|ARM
