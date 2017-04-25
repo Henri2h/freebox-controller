@@ -14,11 +14,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)FreeboxControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HTTP_Request.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)methods\Authentification.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)methods\Call.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)methods\LanBrowser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)methods\Login.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)methods\parentalControll.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)methods\Wifi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)requests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingManager.cs" />
   </ItemGroup>
   <ItemGroup>
