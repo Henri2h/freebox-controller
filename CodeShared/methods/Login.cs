@@ -57,25 +57,32 @@ namespace CodeShared.methods
 
                 //password
                 string password = Crypt.Encode(Challenge, App_token);
-                bool success = await this.OpenSessionAsync(password);
-
-                if (success)
+                try
                 {
-                    //  requests.permission appPermissions = response.result.permissions;
-                    // set Fbx_Hedaer for other call
-                    HTTP_Request.Fbx_Header = this.Session_token;
+                    bool success = await this.OpenSessionAsync(password);
 
+                    if (success)
+                    {
+                        //  requests.permission appPermissions = response.result.permissions;
+                        // set Fbx_Hedaer for other call
+                        HTTP_Request.Fbx_Header = this.Session_token;
+
+                    }
+                    else
+                        throw new LoginFailedException();
+                    return success;
                 }
-                else
+                catch
+                {
                     throw new LoginFailedException();
-                return success;
+                }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Message : " + ex.Message);
                 System.Diagnostics.Debug.WriteLine("Source : " + ex.Source);
                 System.Diagnostics.Debug.WriteLine("Stack trace : " + ex.StackTrace);
-                return false;
+                throw ex;
             }
         }
 
@@ -162,9 +169,11 @@ namespace CodeShared.methods
                 bool requestEnded = false;
                 while (requestEnded == false)
                 {
+
                     string state = await GettrackPendingInfoAsync(Track_id);
                     if (state == "granted") { return true; }
                     else if (state == "error") return false;
+
                 }
             }
             return false;
@@ -182,7 +191,7 @@ namespace CodeShared.methods
             };
 
             //serializing
-            string authReq = JsonConvert.SerializeObject(request.ToString());
+            string authReq = request.ToString();
 
             string authorisation = await HTTP_Request.HTTP_POSTAsync(Core.Host, "/api/v3/login/authorize", authReq);
             JObject response = JObject.Parse(authorisation);

@@ -22,6 +22,8 @@ namespace FreeboxController_APP
 
             if (FreeboxController.authentification.NeedRegistration)
             {
+                FreeboxController.authentification.CreateLogin();
+                
                 System.Diagnostics.Debug.WriteLine("Registering app");
 
                 var hostNames = NetworkInformation.GetHostNames();
@@ -32,6 +34,11 @@ namespace FreeboxController_APP
                 await r;
             }
             await FreeboxController.authentification.ConnectAppAsync();
+        }
+
+        internal static void DeleteData()
+        {
+            FreeboxController.DeleteSettings();
         }
     }
 }
