@@ -54,5 +54,10 @@ namespace FreeboxController_APP
         {
             StartAsync();
         }
+
+        private void UIBtDeleteData_Click(object sender, RoutedEventArgs e)
+        {
+            AppCore.DeleteData();
+        }
     }
 }

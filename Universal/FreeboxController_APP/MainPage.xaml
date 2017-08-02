@@ -12,6 +12,7 @@
             <TextBlock Text="Freebox Controller"/>
             <TextBox x:Name="UITBName"/>
             <Button x:Name="UIBtText" Content="Connect" Click="UIBtText_Click"/>
+            <Button x:Name="UIBtDeleteData" Content="DeleteData" Click="UIBtDeleteData_Click"/>
         </StackPanel>
     </Grid>
 </Page>

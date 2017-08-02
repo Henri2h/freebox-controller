@@ -51,5 +51,13 @@ namespace CodeShared
             SettingManager.SaveData();
             Core.dataRegister = true;
         }
+
+        internal void DeleteSettings()
+        {
+            SettingManager.DeleteData();
+            Core.login = null;
+            
+            Core.dataRegister = false;
+        }
     }
 }
