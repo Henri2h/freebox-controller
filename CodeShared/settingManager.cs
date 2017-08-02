@@ -51,6 +51,13 @@ namespace CodeShared
             public ErrorInGettingTheData() : base() { }
             public ErrorInGettingTheData(string message) : base(message) { }
         }
+
+        internal static void DeleteData()
+        {
+            File.Delete(Path.Combine(FileDir, "values.json"));
+            
+        }
+
         public static Login GetData()
         {
             try
